@@ -130,12 +130,6 @@ All three constraints were successfully verified using `SHOW CONSTRAINTS`.
 
 Implementation: `queries/part2_load.cypher`.
 
-### 2.4 Execution Evidence
-
-The created constraints were verified in Aura Query:
-
-![Neo4j uniqueness constraints](output/02_constraints.png)
-
 ### 2.5 Data Import Results
 
 The MovieLens 1M dataset was successfully imported into Neo4j AuraDB Free using Cypher `LOAD CSV` queries with CSV files accessible via GitHub Raw URLs.
@@ -157,8 +151,6 @@ Due to the resource limitations of AuraDB Free, the import was limited to the fi
 | **Total relationships** | **206,408** |
 
 The final node and relationship counts were verified using Cypher aggregation queries. The 200,000 ratings are the first rows of the rating file, **not a random or representative sample**, so analysis results may be biased toward users appearing earlier in the source file.
-
-![Imported node and relationship counts](output/load_data.png)
 
 ## Part 3 — Cypher Queries
 
@@ -185,8 +177,6 @@ The analysis is based on a subset of 200,000 ratings from the MovieLens 1M datas
 
 **Interpretation:** A high average rating does not necessarily indicate a reliable recommendation. Blackmail has a perfect score based on only one rating, whereas The Usual Suspects has a high average supported by hundreds of ratings.
 
-![Query 1 Results](output/03_query1.png)
-
 ### Query 2 — Users with More Than 50 Five-Star Ratings
 
 **Purpose:** Identify users who gave a rating of 5 to more than 50 distinct movies.
@@ -205,8 +195,6 @@ The analysis is based on a subset of 200,000 ratings from the MovieLens 1M datas
 
 **Interpretation:** Some users are substantially more active in assigning maximum ratings. User 549 gave 402 five-star ratings, making this user an interesting candidate for further analysis of graph connectivity.
 
-![Query 2 Results](output/03_query2.png)
-
 ### Query 3 — Movies Highly Rated by Two Users
 
 **Purpose:** Find movies that both User 1 and User 2 rated at least 4.
@@ -223,8 +211,6 @@ The analysis is based on a subset of 200,000 ratings from the MovieLens 1M datas
 - To Kill a Mockingbird (1962)
 
 **Interpretation:** The shared movie connections demonstrate overlapping user preferences. Such patterns form the basis for graph-based collaborative recommendation systems.
-
-![Query 3 Results](output/03_query3.png)
 
 ### Query 4 — Genres with High Average Ratings
 
@@ -245,8 +231,6 @@ The analysis is based on a subset of 200,000 ratings from the MovieLens 1M datas
 
 **Interpretation:** Film-Noir has the highest average rating among the displayed genres, while Drama has substantially more ratings. Average rating and rating volume measure different aspects of user preferences. Ratings of movies belonging to multiple genres contribute to each applicable genre.
 
-![Query 4 Results](output/03_query4.png)
-
 ### Query 5 — User-Based Collaborative Filtering
 
 **Purpose:** Recommend movies to User 1 based on other users with similar preferences.
@@ -265,8 +249,6 @@ The analysis is based on a subset of 200,000 ratings from the MovieLens 1M datas
 
 **Interpretation:** The graph supports collaborative filtering by identifying shared preferences through multi-hop relationships. The approach generates recommendations without training a machine-learning model, although popular movies may receive disproportionate support.
 
-![Query 5 Results](output/03_query5.png)
-
 ### Query 6 — Shortest Path Between Two Users
 
 **Purpose:** Find the shortest connection between User 1 and User 2 through movies they have rated.
@@ -284,8 +266,6 @@ The analysis is based on a subset of 200,000 ratings from the MovieLens 1M datas
 A hop represents traversal of one relationship. The shortest path is measured in relationships, not in the number of movies or users alone.
 
 The shortest path is calculated using graph connectivity, regardless of the actual rating values. Therefore, two users connected through a movie do not necessarily have similar preferences.
-
-![Query 6 Results](output/03_query6.png)
 
 ### Shortest Path Interpretation
 
@@ -344,8 +324,6 @@ The highest-degree nodes observed include:
 
 Both highly active users and popular genres are potential supernodes. The table lists the seven records visible in the saved result, rather than claiming to reproduce all ten rows.
 
-![Top 10 Supernodes](output/04_supernodes_top10.png)
-
 ### 4.2 Genre Supernode Analysis
 
 Genre nodes were analyzed separately by counting the movies connected through `HAS_GENRE` relationships.
@@ -359,8 +337,6 @@ The most connected genres were:
 | Action | 503 |
 | Thriller | 492 |
 | Romance | 471 |
-
-![Genre Node Degrees](output/04_genre_degrees.png)
 
 Drama and Comedy have substantially more connections than most other genres.
 
